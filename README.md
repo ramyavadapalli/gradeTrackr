@@ -1,1 +1,1 @@
-# gradeTrackr
+# GradeTrackr
