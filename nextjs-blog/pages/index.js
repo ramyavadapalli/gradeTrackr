@@ -26,8 +26,6 @@ export default function Home() {
           Join Now
         </Link>
       </main>
-
-      <Footer /> {/* Use the Footer component here */}
     </div>
   );
 }

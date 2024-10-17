@@ -17,7 +17,7 @@ export default function Profile() {
         {/* Add profile content here */}
       </main>
 
-      <Footer /> {/* Use the Footer component here */}
+
     </div>
   );
 }

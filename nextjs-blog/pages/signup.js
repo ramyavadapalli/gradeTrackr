@@ -31,7 +31,6 @@ export default function Signup() {
         </form>
       </main>
 
-      <Footer /> {/* Use the Footer component here */}
     </div>
   );
 }

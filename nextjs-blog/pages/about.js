@@ -21,7 +21,6 @@ export default function About() {
         </p>
       </main>
 
-      <Footer /> {/* Use the Footer component here */}
     </div>
   );
 }
