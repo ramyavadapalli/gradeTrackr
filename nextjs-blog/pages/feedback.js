@@ -1,11 +1,12 @@
 // _app.js
-import '../styles/global.css'; // Adjust the path if necessary
+import '../styles/global.css'; // Already imported global styles
+import '../styles/feedback.css'; // Import feedback styles here
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css'; // Adjust the path if necessary
-import { AppProps } from 'next/app'; // Import AppProps
-import Navbar from '../components/Navbar'; // Import the Navbar component
-import Footer from '../components/Footer'; // Adjust the path if necessary
+import styles from '../styles/Home.module.css';
+import { AppProps } from 'next/app';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { useRouter } from 'next/router';
 
 function MyApp({ Component, pageProps }) {
@@ -22,7 +23,6 @@ function MyApp({ Component, pageProps }) {
           <Link href="/" className={styles.logo}>
             GradeTrackr
           </Link>
-          {/* Show Profile link only on About and Signup pages */}
           {(router.pathname === '/about' || router.pathname === '/signup') && (
             <Link href="/profile" className={styles.profileTab}>Profile</Link>
           )}
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
 
       <Component {...pageProps} />
 
-      <Footer /> {/* Include the Footer Component without Profile link */}
+      <Footer />
     </>
   );
 }
