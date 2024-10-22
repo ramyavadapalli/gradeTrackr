@@ -1,39 +1,55 @@
-// _app.js
-import '../styles/global.css'; // Already imported global styles
-import '../styles/feedback.css'; // Import feedback styles here
-import Head from 'next/head';
-import Link from 'next/link';
-import styles from '../styles/Home.module.css';
-import { AppProps } from 'next/app';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import { useRouter } from 'next/router';
+// pages/feedback.js
+import { useState } from 'react';
+import styles from '../styles/feedback.module.css'; // Import feedback-specific CSS
 
-function MyApp({ Component, pageProps }) {
-  const router = useRouter();
+export default function FeedbackPage() {
+  const [feedback, setFeedback] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ feedback }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+        setFeedback('');
+      } else {
+        alert('Failed to submit feedback. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+    }
+  };
 
   return (
-    <>
-      <Head>
-        <title>GradeTrackr</title>
-      </Head>
-
-      <header className={styles.header}>
-        <nav className={styles.navbar}>
-          <Link href="/" className={styles.logo}>
-            GradeTrackr
-          </Link>
-          {(router.pathname === '/about' || router.pathname === '/signup') && (
-            <Link href="/profile" className={styles.profileTab}>Profile</Link>
-          )}
-        </nav>
-      </header>
-
-      <Component {...pageProps} />
-
-      <Footer />
-    </>
+    <div className={styles.container}>
+      <h1 className={styles.title}>We value your feedback!</h1>
+      {!submitted ? (
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <textarea
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            placeholder="Let us know what you think..."
+            className={styles.textarea}
+            required
+          />
+          <button type="submit" className={styles.submitButton}>
+            Submit
+          </button>
+        </form>
+      ) : (
+        <p className={styles.thankYouMessage}>
+          Thank you for your feedback!
+        </p>
+      )}
+    </div>
   );
 }
-
-export default MyApp;
